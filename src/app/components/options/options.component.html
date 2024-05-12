@@ -4,6 +4,6 @@
         <button (click)="getShows()">TV Shows</button>
     </div>
     <div class="media-filter">
-        <input placeholder="search"/>
+        <input placeholder="search" (keyup)="emitSearchInput($event)" #search/>
     </div>
 </div>
