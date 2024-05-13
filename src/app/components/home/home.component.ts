@@ -25,7 +25,6 @@ export class HomeComponent {
   public setList(newMedia: Media): void {
     this.mediaType = newMedia.mediaType;
     this.mediaList = newMedia.mediaList;
-    console.log(this.mediaType);
     console.log(this.mediaList);
   }
 }

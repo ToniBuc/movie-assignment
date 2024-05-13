@@ -8,27 +8,25 @@ import { Options } from './options';
   selector: 'app-options',
   standalone: true,
   imports: [],
-  providers: [
-    TmdbService
-  ],
+  providers: [],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'
 })
 export class OptionsComponent implements OnInit, OnDestroy {
   @Output() updateListEvent = new EventEmitter<Media>();
-  @ViewChild('search') search?: ElementRef;
 
   private subscriptions = new Subscription();
   private search$ = new Subject<string>();
 
   public activeTab: Options = Options.MOVIES;
+  public searchInput: string = '';
 
   constructor(
     private tmdbService: TmdbService
   ) {}
 
   ngOnInit(): void {
-    this.getShows();
+    this.getState();
 
     this.subscriptions.add(this.search$.pipe(
       debounceTime(1000),
@@ -42,11 +40,25 @@ export class OptionsComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  /**
+   * Gets data for the state of the list, including any filters that were applied previously 
+   * if we are navigating back to the list from the media details page.
+   */
+  public getState(): void {
+    this.activeTab = this.tmdbService.getActiveTab();
+    this.searchInput = this.tmdbService.getSearchInput();
+    if (this.activeTab === Options.MOVIES)
+      this.getMovies();
+    else
+      this.getShows();
+  }
+
   public getMovies(): void {
-    const searchInput = this.search?.nativeElement.value;
     this.activeTab = Options.MOVIES;
-    if (searchInput && searchInput.length >= 3) {
-      this.searchMovies(searchInput);
+    this.tmdbService.setActiveTab(this.activeTab);
+
+    if (this.searchInput && this.searchInput.length >= 3) {
+      this.searchMovies();
     } else {
       this.getTopMovies();
     }
@@ -58,17 +70,18 @@ export class OptionsComponent implements OnInit, OnDestroy {
     })
   }
   
-  public searchMovies(searchInput: string): void {
-    this.tmdbService.searchMovies(searchInput).subscribe((data) => {
+  public searchMovies(): void {
+    this.tmdbService.searchMovies(this.searchInput).subscribe((data) => {
       this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
 
   public getShows(): void {
-    const searchInput = this.search?.nativeElement.value;
     this.activeTab = Options.TV_SHOWS;
-    if (searchInput && searchInput.length >= 3) {
-      this.searchShows(searchInput);
+    this.tmdbService.setActiveTab(this.activeTab);
+
+    if (this.searchInput && this.searchInput.length >= 3) {
+      this.searchShows();
     } else {
       this.getTopShows();
     }
@@ -80,8 +93,8 @@ export class OptionsComponent implements OnInit, OnDestroy {
     })
   }
 
-  public searchShows(searchInput: string): void {
-    this.tmdbService.searchShows(searchInput).subscribe((data) => {
+  public searchShows(): void {
+    this.tmdbService.searchShows(this.searchInput).subscribe((data) => {
       this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
@@ -94,8 +107,9 @@ export class OptionsComponent implements OnInit, OnDestroy {
   }
 
   public emitSearchInput(event: Event) {
-    // searchInput value is passed to make sure distinctUntilChanged properly prevents emissions of identical values
-    const searchInput = (event.target as HTMLInputElement).value;
-    this.search$.next(searchInput);
+    // searchInput value is passed to the search subject to make sure distinctUntilChanged properly prevents emissions of identical values
+    this.searchInput = (event.target as HTMLInputElement).value;
+    this.tmdbService.setSearchInput(this.searchInput);
+    this.search$.next(this.searchInput);
   }
 }

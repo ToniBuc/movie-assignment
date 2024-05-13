@@ -9,9 +9,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule
   ],
-  providers: [
-    TmdbService
-  ],
+  providers: [],
   templateUrl: './media-details.component.html',
   styleUrl: './media-details.component.scss'
 })

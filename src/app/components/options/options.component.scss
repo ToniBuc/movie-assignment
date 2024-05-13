@@ -1,0 +1,13 @@
+button {
+    padding: 5px 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  button.selected {
+    background-color: rgb(60, 138, 255);
+    color: #fff;
+    border-color: rgb(60, 138, 255);;
+  }

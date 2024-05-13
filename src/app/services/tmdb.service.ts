@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { MediaDetails } from '../types/media';
+import { Options } from '../components/options/options';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +10,9 @@ import { MediaDetails } from '../types/media';
 export class TmdbService {
   public apiBaseUrl: string = "https://api.themoviedb.org/3";
   public apiKey: string = "placeholderApiKey";
+
+  private searchInput: string = '';
+  private activeTab: Options = Options.TV_SHOWS;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -79,5 +83,22 @@ export class TmdbService {
     }
 
     return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}`, {params});
+  }
+
+  // getters and setters for state retention of list filtering
+  getSearchInput(): string {
+    return this.searchInput;
+  }
+
+  getActiveTab(): Options {
+    return this.activeTab;
+  }
+
+  setSearchInput(searchInput: string): void {
+    this.searchInput = searchInput;
+  }
+
+  setActiveTab(activeTab: Options): void {
+    this.activeTab = activeTab;
   }
 }
