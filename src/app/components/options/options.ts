@@ -1,4 +1,4 @@
 export enum Options {
-    MOVIES = 'Movies',
-    TV_SHOWS = 'TV_Shows'
+    MOVIES = 'movie',
+    TV_SHOWS = 'tv'
 }

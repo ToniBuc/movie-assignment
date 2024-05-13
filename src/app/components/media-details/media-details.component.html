@@ -1,0 +1,20 @@
+<div class="media-details-wrapper">
+    <div class="media-image-wrapper">
+        <img class="media-image" [src]="'https://image.tmdb.org/t/p/w500' + media?.backdrop_path"/>
+    </div>
+    <div class="details-content">
+        <h1>{{media?.name}}</h1>
+        <div class="media-details-overview">
+            <h3>Overview</h3>
+            <span>
+                {{media?.overview}}
+            </span>
+        </div>
+        <div class="media-details-genres">
+            <h3>Genres</h3>
+            <span *ngFor="let item of media?.genres">
+                {{item.name}}
+            </span>
+        </div>
+    </div>
+</div>

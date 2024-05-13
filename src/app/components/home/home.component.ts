@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { OptionsComponent } from '../options/options.component';
-import { Media } from '../../types/media';
+import { Media, MediaDetails } from '../../types/media';
 import { CommonModule } from '@angular/common';
 import { ListComponent } from '../list/list.component';
 
@@ -16,12 +16,16 @@ import { ListComponent } from '../list/list.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  public mediaList: Media[] = [];
+  // consider simplifying the app structure by moving the list component logic to the home component
+  public mediaType: string = '';
+  public mediaList: MediaDetails[] = [];
 
   constructor() {}
 
-  public setList(newList: Media[]): void {
-    this.mediaList = newList;
+  public setList(newMedia: Media): void {
+    this.mediaType = newMedia.mediaType;
+    this.mediaList = newMedia.mediaList;
+    console.log(this.mediaType);
     console.log(this.mediaList);
   }
 }

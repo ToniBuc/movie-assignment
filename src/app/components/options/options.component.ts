@@ -15,7 +15,7 @@ import { Options } from './options';
   styleUrl: './options.component.scss'
 })
 export class OptionsComponent implements OnInit, OnDestroy {
-  @Output() updateListEvent = new EventEmitter<Media[]>();
+  @Output() updateListEvent = new EventEmitter<Media>();
   @ViewChild('search') search?: ElementRef;
 
   private subscriptions = new Subscription();
@@ -54,13 +54,13 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getTopMovies(): void {
     this.tmdbService.getTopMovies().subscribe((data) => {
-      this.updateListEvent.emit(data);
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
   
   public searchMovies(searchInput: string): void {
     this.tmdbService.searchMovies(searchInput).subscribe((data) => {
-      this.updateListEvent.emit(data);
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
 
@@ -76,13 +76,13 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getTopShows(): void {
     this.tmdbService.getTopShows().subscribe((data) => {
-      this.updateListEvent.emit(data);
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
 
   public searchShows(searchInput: string): void {
     this.tmdbService.searchShows(searchInput).subscribe((data) => {
-      this.updateListEvent.emit(data);
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
     })
   }
 

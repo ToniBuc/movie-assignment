@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Media } from '../types/media';
+import { MediaDetails } from '../types/media';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class TmdbService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getTopMovies(): Observable<Media[]> {
+  public getTopMovies(): Observable<MediaDetails[]> {
     const params = {
       api_key: this.apiKey,
       page: 1
@@ -26,7 +26,7 @@ export class TmdbService {
     );
   }
 
-  public getTopShows(): Observable<Media[]> {
+  public getTopShows(): Observable<MediaDetails[]> {
     const params = {
       api_key: this.apiKey,
       page: 1
@@ -38,7 +38,7 @@ export class TmdbService {
   }
 
   // consider reducing the search methods to one with a parameter that will determine which media type will be returned 
-  public searchMovies(searchInput: string): Observable<Media[]> {
+  public searchMovies(searchInput: string): Observable<MediaDetails[]> {
     const params = {
       api_key: this.apiKey,
       page: 1,
@@ -51,7 +51,7 @@ export class TmdbService {
     );
   }
 
-  public searchShows(searchInput: string): Observable<Media[]> {
+  public searchShows(searchInput: string): Observable<MediaDetails[]> {
     const params = {
       api_key: this.apiKey,
       page: 1,
@@ -62,5 +62,22 @@ export class TmdbService {
     return this.httpClient.get(`${this.apiBaseUrl}/search/tv`, {params}).pipe(
       map((data: any) => data.results.slice(0, 10))
     );
+  }
+
+  // consider reducing the get details methods to one with a parameter that will determine which media type will be returned 
+  public getMovieDetails(id: number): Observable<any> {
+    const params = {
+      api_key: this.apiKey,
+    }
+
+    return this.httpClient.get(`${this.apiBaseUrl}/movie/${id}`, {params});
+  }
+
+  public getShowDetails(id: number): Observable<any> {
+    const params = {
+      api_key: this.apiKey,
+    }
+
+    return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}`, {params});
   }
 }

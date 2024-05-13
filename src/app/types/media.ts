@@ -1,6 +1,13 @@
 export interface Media {
+    mediaType: string;
+    mediaList: MediaDetails[]
+}
+
+// should add more types to separate properties properly
+export interface MediaDetails {
     adult: boolean;
     backdrop_path: string;
+    genres: any[] // 
     genre_ids: number[];
     id: number;
     original_language: string;
