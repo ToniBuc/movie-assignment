@@ -1,15 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MediaDetails } from '../../types/media';
 import { TmdbService } from '../../services/tmdb.service';
-import { CommonModule } from '@angular/common';
+import { Options } from '../options/options';
 
 @Component({
   selector: 'app-media-details',
-  standalone: true,
-  imports: [
-    CommonModule
-  ],
-  providers: [],
   templateUrl: './media-details.component.html',
   styleUrl: './media-details.component.scss'
 })
@@ -27,7 +22,7 @@ export class MediaDetailsComponent implements OnInit {
   }
 
   public getMediaDetails(): void {
-    if (this.mediaType === 'movie') {
+    if (this.mediaType === Options.MOVIES) {
       this.tmdbService.getMovieDetails(<number>this.id).subscribe((data) => {
         this.media = data;
       });

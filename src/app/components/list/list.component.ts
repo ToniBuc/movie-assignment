@@ -1,15 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MediaDetails } from '../../types/media';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule
-  ],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })

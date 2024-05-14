@@ -1,17 +1,8 @@
 import { Component } from '@angular/core';
-import { OptionsComponent } from '../options/options.component';
 import { Media, MediaDetails } from '../../types/media';
-import { CommonModule } from '@angular/common';
-import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [
-    CommonModule,
-    OptionsComponent,
-    ListComponent
-  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

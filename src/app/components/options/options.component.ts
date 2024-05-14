@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { TmdbService } from '../../services/tmdb.service';
 import { Media } from '../../types/media';
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -6,9 +6,6 @@ import { Options } from './options';
 
 @Component({
   selector: 'app-options',
-  standalone: true,
-  imports: [],
-  providers: [],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'
 })
@@ -18,7 +15,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
   private search$ = new Subject<string>();
 
-  public activeTab: Options = Options.MOVIES;
+  public activeTab: Options = Options.TV_SHOWS;
   public searchInput: string = '';
 
   constructor(
@@ -45,8 +42,8 @@ export class OptionsComponent implements OnInit, OnDestroy {
    * if we are navigating back to the list from the media details page.
    */
   public getState(): void {
-    this.activeTab = this.tmdbService.getActiveTab();
-    this.searchInput = this.tmdbService.getSearchInput();
+    this.activeTab = <Options>this.tmdbService.getActiveTab();
+    this.searchInput = <string>this.tmdbService.getSearchInput();
     if (this.activeTab === Options.MOVIES)
       this.getMovies();
     else

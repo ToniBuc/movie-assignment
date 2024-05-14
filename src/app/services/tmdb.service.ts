@@ -11,9 +11,6 @@ export class TmdbService {
   public apiBaseUrl: string = "https://api.themoviedb.org/3";
   public apiKey: string = "placeholderApiKey";
 
-  private searchInput: string = '';
-  private activeTab: Options = Options.TV_SHOWS;
-
   constructor(private httpClient: HttpClient) { }
 
   public getTopMovies(): Observable<MediaDetails[]> {
@@ -86,19 +83,20 @@ export class TmdbService {
   }
 
   // getters and setters for state retention of list filtering
-  getSearchInput(): string {
-    return this.searchInput;
+  // changed to sessionStorage from properties to retain filters on refresh
+  getSearchInput(): string | null {
+    return sessionStorage.getItem('searchInput');
   }
 
-  getActiveTab(): Options {
-    return this.activeTab;
+  getActiveTab(): string | null {
+    return sessionStorage.getItem('activeTab');
   }
 
   setSearchInput(searchInput: string): void {
-    this.searchInput = searchInput;
+    sessionStorage.setItem('searchInput', searchInput);
   }
 
   setActiveTab(activeTab: Options): void {
-    this.activeTab = activeTab;
+    sessionStorage.setItem('activeTab', activeTab);
   }
 }
