@@ -1,6 +1,10 @@
 <div class="list-wrapper">
     <div class="list-item" *ngFor="let item of mediaList">
-        <img class="list-item-image" [src]="imgBaseUrl + item.poster_path" [routerLink]="[mediaType, item.id]"/>
+        <div class="list-item-image-wrapper">
+            <a [routerLink]="[mediaType, item.id]">
+                <img class="list-item-image" [src]="imgBaseUrl + item.poster_path"/>
+            </a>
+        </div>
         <div class="list-item-title">
             <span *ngIf="item.title; else show">{{item.title}}</span>
             <ng-template #show>
