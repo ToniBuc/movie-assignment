@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Media, MediaDetails } from '../../types/media';
+import { Media, MediaBasic } from '../../types/media';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +9,7 @@ import { Media, MediaDetails } from '../../types/media';
 export class HomeComponent {
   // consider simplifying the app structure by moving the list component logic to the home component
   public mediaType: string = '';
-  public mediaList: MediaDetails[] = [];
+  public mediaList: MediaBasic[] = [];
 
   constructor() {}
 

@@ -1,20 +1,90 @@
 <div class="media-details-wrapper">
-    <div class="media-image-wrapper">
-        <img class="media-image" [src]="'https://image.tmdb.org/t/p/w500' + media?.backdrop_path"/>
+    <div class="media-trailer-image-wrapper">
+        <div class="media-button-container">
+            <button (click)="goBack()">Go back</button>
+        </div>
+        <iframe class="media-trailer" *ngIf="trailerUrl; else backdrop" [src]="trailerUrl"></iframe>
+        <ng-template #backdrop>
+            <img class="media-image" [src]="'https://image.tmdb.org/t/p/original' + media?.backdrop_path"/>
+        </ng-template>
     </div>
-    <div class="details-content">
-        <h1>{{media?.name}}</h1>
+    <div *ngIf="mediaType === 'movie'; else tv" class="media-details-content">
+        <div class="media-details-header">
+            <h1>{{media?.title}}</h1>
+            <div class="media-details-basic">
+                <span>{{media?.release_date}} -</span>
+                <span *ngFor="let item of media?.genres; let last = last">
+                    {{item.name}}<ng-container *ngIf="!last">,</ng-container>
+                </span>
+                <span> - {{media?.runtime | time }}</span>
+            </div>
+        </div>
         <div class="media-details-overview">
             <h3>Overview</h3>
-            <span>
-                {{media?.overview}}
-            </span>
+            <span class="media-details-tagline">{{media?.tagline}}</span>
+            <span>{{media?.overview}}</span>
         </div>
-        <div class="media-details-genres">
-            <h3>Genres</h3>
-            <span *ngFor="let item of media?.genres">
-                {{item.name}}
-            </span>
+        <div class="media-details-misc">
+            <div>
+                <h4>Budget</h4>
+                <span>{{media?.budget | currency}}</span>
+            </div>
+            <div>
+                <h4>Revenue</h4>
+                <span>{{media?.revenue | currency}}</span>
+            </div>
+            <div>
+                <h4>User rating</h4>
+                <span>{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
+            </div>
+            <div>
+                <h4>Status</h4>
+                <span>{{media?.status}}</span>
+            </div>
         </div>
     </div>
+    <ng-template #tv>
+        <div class="media-details-content">
+            <div class="media-details-header">
+                <h1>{{media?.name}}</h1>
+                <div class="media-details-basic">
+                    <span>
+                        {{media?.first_air_date}} -
+                    </span>
+                    <span *ngFor="let item of media?.genres; let last = last">
+                        {{item.name}}<ng-container *ngIf="!last">,</ng-container>
+                    </span>
+                </div>
+            </div>
+            <div class="media-details-overview">
+                <h3>Overview</h3>
+                <span class="media-details-tagline">{{media?.tagline}}</span>
+                <span>
+                    {{media?.overview}}
+                </span>
+            </div>
+            <div class="media-details-misc">
+                <div>
+                    <h4>User rating</h4>
+                    <span>{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
+                </div>
+                <div>
+                    <h4>Status</h4>
+                    <span>{{media?.status}}</span>
+                </div>
+                <div>
+                    <h4>Type</h4>
+                    <span>{{media?.type}}</span>
+                </div>
+                <div>
+                    <h4>Seasons</h4>
+                    <span>{{media?.number_of_seasons}}</span>
+                </div>
+                <div>
+                    <h4>Episodes</h4>
+                    <span>{{media?.number_of_episodes}}</span>
+                </div>
+            </div>
+        </div>
+    </ng-template>
 </div>

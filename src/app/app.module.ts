@@ -9,6 +9,7 @@ import { OptionsModule } from './components/options/options.module';
 import { MediaDetailsModule } from './components/media-details/media-details.module';
 import { TmdbService } from './services/tmdb.service';
 import { HttpClientModule } from '@angular/common/http';
+import { TimeModule } from './pipes/time.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     ListModule,
     OptionsModule,
     MediaDetailsModule,
+    TimeModule,
     HttpClientModule
   ],
   providers: [

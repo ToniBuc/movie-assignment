@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { MediaDetails } from '../../types/media';
+import { MediaBasic } from '../../types/media';
 
 @Component({
   selector: 'app-list',
@@ -9,7 +9,7 @@ import { MediaDetails } from '../../types/media';
 export class ListComponent {
   // consider simplifying the app structure by moving the list component logic to the home component
   @Input() mediaType: string = '';
-  @Input() mediaList: MediaDetails[] = [];
+  @Input() mediaList: MediaBasic[] = [];
   public imgBaseUrl: string = "https://image.tmdb.org/t/p/w500";
 
   constructor() { }

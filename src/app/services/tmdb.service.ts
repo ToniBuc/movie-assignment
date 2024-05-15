@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { MediaDetails } from '../types/media';
+import { MediaBasic } from '../types/media';
 import { Options } from '../components/options/options';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class TmdbService {
 
   constructor(private httpClient: HttpClient) { }
 
-  public getTopMovies(): Observable<MediaDetails[]> {
+  public getTopMovies(): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
       page: 1
@@ -27,7 +27,7 @@ export class TmdbService {
     );
   }
 
-  public getTopShows(): Observable<MediaDetails[]> {
+  public getTopShows(): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
       page: 1
@@ -39,27 +39,25 @@ export class TmdbService {
   }
 
   // consider reducing the search methods to one with a parameter that will determine which media type will be returned 
-  public searchMovies(searchInput: string): Observable<MediaDetails[]> {
+  public searchMovies(searchInput: string): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
       page: 1,
       query: searchInput
     }
 
-    // need to check if the requirement of 10 applies here as well 
     return this.httpClient.get(`${this.apiBaseUrl}/search/movie`, {params}).pipe(
       map((data: any) => data.results.slice(0, 10))
     );
   }
 
-  public searchShows(searchInput: string): Observable<MediaDetails[]> {
+  public searchShows(searchInput: string): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
       page: 1,
       query: searchInput
     }
 
-    // need to check if the requirement of 10 applies here as well 
     return this.httpClient.get(`${this.apiBaseUrl}/search/tv`, {params}).pipe(
       map((data: any) => data.results.slice(0, 10))
     );
@@ -82,8 +80,26 @@ export class TmdbService {
     return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}`, {params});
   }
 
+  // consider reducing the get videos methods to one with a parameter that will determine which media type will be returned 
+  public getMovieVideos(id: number): Observable<any> {
+    const params = {
+      api_key: this.apiKey,
+    }
+
+    return this.httpClient.get(`${this.apiBaseUrl}/movie/${id}/videos`, {params});
+  }
+
+  public getShowVideos(id: number): Observable<any> {
+    const params = {
+      api_key: this.apiKey,
+    }
+
+    return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}/videos`, {params});
+  }
+
   // getters and setters for state retention of list filtering
   // changed to sessionStorage from properties to retain filters on refresh
+  // consider moving to separate service
   getSearchInput(): string | null {
     return sessionStorage.getItem('searchInput');
   }
