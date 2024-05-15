@@ -1,5 +1,5 @@
 .options-wrapper {
-  width: 30%;
+  max-width: 360px;
   margin: 0 auto;
 
   .options {
@@ -13,12 +13,15 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 
     .media-tabs {
+      width: 100%;
       display: flex;
       justify-content: center;
   
       button {
+        width: 100%;
+        height: 40px;
         padding: 5px 10px;
-        margin-right: 10px;
+        margin: 5px;
         border: 1px solid #ccc;
         background-color: #fff;
         cursor: pointer;
@@ -36,7 +39,7 @@
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 15px;
+      margin-top: 10px;
   
       .media-filter-input {
         padding: 10px;
@@ -47,4 +50,11 @@
     }
   }
 }
+
+@media screen and (max-width: 480px) {
+  .options-wrapper {
+      width: 100%;
+  }
+}
+
 
