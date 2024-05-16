@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "jest",
+    "assignment": "npm install && npm run build && npm run start",
+    "assignment:ng": "npm install -g @angular/cli@17.3.5 && npm run assignment"
   },
   "private": true,
   "dependencies": {

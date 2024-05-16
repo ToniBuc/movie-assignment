@@ -2,26 +2,17 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
 
-## Development server
+## Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To use the app, it requires an api key for the [TMDB Api](https://developers.themoviedb.org/3).
+Once you have generated one, replace the value of the apiKey property in `src/app/services/tmdb.service.ts` with it.
 
-## Code scaffolding
+There are two custom scripts made available to get the app running, pick one to run depending on your situation/preference:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run `npm run assignment` to install dependencies, build the app and serve it.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm run assignment:ng` to globally install Angular CLI version 17.3.5, then install dependencies, build the app and serve it.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
