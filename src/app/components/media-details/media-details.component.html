@@ -16,7 +16,7 @@
                 <span *ngFor="let item of media?.genres; let last = last">
                     {{item.name}}<ng-container *ngIf="!last">,</ng-container>
                 </span>
-                <span> - {{media?.runtime | time }}</span>
+                <span *ngIf="media?.runtime"> - {{media?.runtime | time }}</span>
             </div>
         </div>
         <div class="media-details-overview">
@@ -27,15 +27,15 @@
         <div class="media-details-misc">
             <div>
                 <h4>Budget</h4>
-                <span>{{media?.budget | currency}}</span>
+                <span *ngIf="media?.budget != 0; else unavailable">{{media?.budget | currency}}</span>
             </div>
             <div>
                 <h4>Revenue</h4>
-                <span>{{media?.revenue | currency}}</span>
+                <span *ngIf="media?.revenue != 0; else unavailable">{{media?.revenue | currency}}</span>
             </div>
             <div>
                 <h4>User rating</h4>
-                <span>{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
+                <span *ngIf="media?.vote_average != 0; else unavailable">{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
             </div>
             <div>
                 <h4>Status</h4>
@@ -66,7 +66,7 @@
             <div class="media-details-misc">
                 <div>
                     <h4>User rating</h4>
-                    <span>{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
+                    <span *ngIf="media?.vote_average != 0; else unavailable">{{media?.vote_average! / 10 | percent: '1.0-0' }}</span>
                 </div>
                 <div>
                     <h4>Status</h4>
@@ -88,3 +88,7 @@
         </div>
     </ng-template>
 </div>
+
+<ng-template #unavailable>
+    <span>N/A</span>
+</ng-template>
