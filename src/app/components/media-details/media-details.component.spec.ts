@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MediaDetailsComponent } from './media-details.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MediaDetailsComponent', () => {
   let component: MediaDetailsComponent;
@@ -8,7 +9,8 @@ describe('MediaDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MediaDetailsComponent]
+      declarations: [MediaDetailsComponent],
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
     

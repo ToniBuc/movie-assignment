@@ -65,13 +65,13 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getTopMovies(): void {
     this.tmdbService.getTopMovies().subscribe((data) => {
-      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data.results});
     })
   }
   
   public searchMovies(): void {
     this.tmdbService.searchMovies(this.searchInput).subscribe((data) => {
-      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data.results});
     })
   }
 
@@ -88,13 +88,13 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getTopShows(): void {
     this.tmdbService.getTopShows().subscribe((data) => {
-      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data.results});
     })
   }
 
   public searchShows(): void {
     this.tmdbService.searchShows(this.searchInput).subscribe((data) => {
-      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data});
+      this.updateListEvent.emit({mediaType: this.activeTab, mediaList: data.results});
     })
   }
 

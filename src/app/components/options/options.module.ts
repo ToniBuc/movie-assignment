@@ -5,7 +5,7 @@ import { OptionsService } from './options.service';
 @NgModule({
     imports: [],
     exports: [OptionsComponent],
-    declarations: [OptionsComponent,],
+    declarations: [OptionsComponent],
     providers: [OptionsService],
 })
 export class OptionsModule { }

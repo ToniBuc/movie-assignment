@@ -15,7 +15,7 @@ export class HomeComponent {
 
   public setList(newMedia: Media): void {
     this.mediaType = newMedia.mediaType;
-    this.mediaList = newMedia.mediaList;
-    console.log(this.mediaList);
+    // on first glance the api doesn't seem to provide a direct option to only get 10, the page parameter when set to 1 returns 20 
+    this.mediaList = newMedia.mediaList.slice(0, 10);
   }
 }
