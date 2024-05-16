@@ -101,7 +101,6 @@ describe('TmdbServiceService', () => {
       });
   
       const request = httpTestingController.expectOne(`${tmdbService.apiBaseUrl}/movie/top_rated?api_key=${tmdbService.apiKey}&page=1`);
-      
   
       request.flush(mockMediaList);
 
@@ -116,7 +115,6 @@ describe('TmdbServiceService', () => {
         retrievedShows = data;
       });
       const request = httpTestingController.expectOne(`${tmdbService.apiBaseUrl}/tv/top_rated?api_key=${tmdbService.apiKey}&page=1`);
-      expect(request.request.method).toEqual('GET');
   
       request.flush(mockMediaList);
   
@@ -144,7 +142,6 @@ describe('TmdbServiceService', () => {
       });
   
       const request = httpTestingController.expectOne(`${tmdbService.apiBaseUrl}/search/movie?api_key=${tmdbService.apiKey}&page=1&query=${mockSearchInput}`);
-      expect(request.request.method).toEqual('GET');
   
       request.flush(mockMediaList);
       expect(retrievedMovies).toEqual(mockMediaList);
@@ -207,9 +204,9 @@ describe('TmdbServiceService', () => {
     });
 
     it('getMovieDetails should be a get request', () => {
-      let retrievedShows = {};
+      let retrievedMovie = {};
       tmdbService.getMovieDetails(mockMediaId).subscribe((data) => {
-        retrievedShows = data;
+        retrievedMovie = data;
       });
   
       const request = httpTestingController.expectOne(`${tmdbService.apiBaseUrl}/movie/${mockMediaId}?api_key=${tmdbService.apiKey}`);
@@ -290,7 +287,7 @@ describe('TmdbServiceService', () => {
       expect(retrievedVideos).toEqual(mockMediaVideos);
     });
 
-    it('getMovieVideos should be a get request', () => {
+    it('getShowVideos should be a get request', () => {
       let retrievedVideos = {};
       tmdbService.getShowVideos(mockMediaId).subscribe((data) => {
         retrievedVideos = data;

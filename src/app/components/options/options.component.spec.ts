@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OptionsComponent } from './options.component';
 import { OptionsService } from './options.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Options } from './options';
 
 describe('OptionsComponent', () => {
@@ -28,7 +28,7 @@ describe('OptionsComponent', () => {
           useValue: mockOptionsService
         }
       ],
-      imports: [HttpClientModule]
+      imports: [HttpClientTestingModule]
     })
     .compileComponents();
     
@@ -116,5 +116,4 @@ describe('OptionsComponent', () => {
       expect(component.getTopShows).toHaveBeenCalled();
     });
   });
-
 });
