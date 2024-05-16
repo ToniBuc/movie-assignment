@@ -3,6 +3,7 @@ import { TmdbService } from '../../services/tmdb.service';
 import { Media } from '../../types/media';
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 import { Options } from './options';
+import { OptionsService } from './options.service';
 
 @Component({
   selector: 'app-options',
@@ -19,7 +20,8 @@ export class OptionsComponent implements OnInit, OnDestroy {
   public searchInput: string = '';
 
   constructor(
-    private tmdbService: TmdbService
+    private tmdbService: TmdbService,
+    private optionsService: OptionsService
   ) {}
 
   ngOnInit(): void {
@@ -42,8 +44,8 @@ export class OptionsComponent implements OnInit, OnDestroy {
    * if we are navigating back to the list from the media details page.
    */
   public getState(): void {
-    this.activeTab = <Options>this.tmdbService.getActiveTab();
-    this.searchInput = <string>this.tmdbService.getSearchInput();
+    this.activeTab = <Options>this.optionsService.getActiveTab();
+    this.searchInput = <string>this.optionsService.getSearchInput();
     if (this.activeTab === Options.MOVIES)
       this.getMovies();
     else
@@ -52,7 +54,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getMovies(): void {
     this.activeTab = Options.MOVIES;
-    this.tmdbService.setActiveTab(this.activeTab);
+    this.optionsService.setActiveTab(this.activeTab);
 
     if (this.searchInput && this.searchInput.length >= 3) {
       this.searchMovies();
@@ -75,7 +77,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
   public getShows(): void {
     this.activeTab = Options.TV_SHOWS;
-    this.tmdbService.setActiveTab(this.activeTab);
+    this.optionsService.setActiveTab(this.activeTab);
 
     if (this.searchInput && this.searchInput.length >= 3) {
       this.searchShows();
@@ -106,7 +108,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
   public emitSearchInput(event: Event) {
     // searchInput value is passed to the search subject to make sure distinctUntilChanged properly prevents emissions of identical values
     this.searchInput = (event.target as HTMLInputElement).value;
-    this.tmdbService.setSearchInput(this.searchInput);
+    this.optionsService.setSearchInput(this.searchInput);
     this.search$.next(this.searchInput);
   }
 }

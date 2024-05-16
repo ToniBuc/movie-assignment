@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { MediaBasic } from '../types/media';
-import { Options } from '../components/options/options';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +12,10 @@ export class TmdbService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /**
+   * Retrieves the top 10 rated movies 
+   * @returns
+   */
   public getTopMovies(): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
@@ -27,6 +30,10 @@ export class TmdbService {
     );
   }
 
+  /**
+   * Retrieves the top 10 rated shows
+   * @returns
+   */
   public getTopShows(): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
@@ -39,6 +46,11 @@ export class TmdbService {
   }
 
   // consider reducing the search methods to one with a parameter that will determine which media type will be returned 
+  /**
+   * Retrieves movies filtered by their name
+   * @param searchInput the query to filter by
+   * @returns 
+   */
   public searchMovies(searchInput: string): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
@@ -51,6 +63,11 @@ export class TmdbService {
     );
   }
 
+  /**
+   * Retrieves shows filtered by their name 
+   * @param searchInput the query to filter by
+   * @returns 
+   */
   public searchShows(searchInput: string): Observable<MediaBasic[]> {
     const params = {
       api_key: this.apiKey,
@@ -64,6 +81,11 @@ export class TmdbService {
   }
 
   // consider reducing the get details methods to one with a parameter that will determine which media type will be returned 
+  /**
+   * Retrieves details for the movie with the specified id
+   * @param id id of movie
+   * @returns 
+   */
   public getMovieDetails(id: number): Observable<any> {
     const params = {
       api_key: this.apiKey,
@@ -72,6 +94,11 @@ export class TmdbService {
     return this.httpClient.get(`${this.apiBaseUrl}/movie/${id}`, {params});
   }
 
+  /**
+   * Retrieves details for the show with the specified id
+   * @param id id of show
+   * @returns 
+   */
   public getShowDetails(id: number): Observable<any> {
     const params = {
       api_key: this.apiKey,
@@ -80,7 +107,12 @@ export class TmdbService {
     return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}`, {params});
   }
 
-  // consider reducing the get videos methods to one with a parameter that will determine which media type will be returned 
+  // consider reducing the get videos methods to one with a parameter that will determine which media type will be returned
+  /**
+   * Retrieves videos for the movie with the specified id
+   * @param id id of movie
+   * @returns 
+   */
   public getMovieVideos(id: number): Observable<any> {
     const params = {
       api_key: this.apiKey,
@@ -89,30 +121,16 @@ export class TmdbService {
     return this.httpClient.get(`${this.apiBaseUrl}/movie/${id}/videos`, {params});
   }
 
+  /**
+   * Retrieves videos for the show with the specified id
+   * @param id id of show 
+   * @returns 
+   */
   public getShowVideos(id: number): Observable<any> {
     const params = {
       api_key: this.apiKey,
     }
 
     return this.httpClient.get(`${this.apiBaseUrl}/tv/${id}/videos`, {params});
-  }
-
-  // getters and setters for state retention of list filtering
-  // changed to sessionStorage from properties to retain filters on refresh
-  // consider moving to separate service
-  getSearchInput(): string | null {
-    return sessionStorage.getItem('searchInput');
-  }
-
-  getActiveTab(): string | null {
-    return sessionStorage.getItem('activeTab');
-  }
-
-  setSearchInput(searchInput: string): void {
-    sessionStorage.setItem('searchInput', searchInput);
-  }
-
-  setActiveTab(activeTab: Options): void {
-    sessionStorage.setItem('activeTab', activeTab);
   }
 }
