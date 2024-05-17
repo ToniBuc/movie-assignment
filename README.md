@@ -4,9 +4,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Getting started
 
-To use the app, it requires an api key for the [TMDB Api](https://developers.themoviedb.org/3).
-Once you have generated one, replace the value of the apiKey property in `src/app/services/tmdb.service.ts` with it.
-
 There are two custom scripts made available to get the app running, pick one to run depending on your situation/preference:
 
 Run `npm run assignment` to install dependencies, build the app and serve it.
